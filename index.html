@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VDO.Ninja Control Interface</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>VDO.Ninja Control</h1>
+            <p class="subtitle">Generador de Sesiones Seguras</p>
+        </header>
+
+        <main>
+            <!-- Configuration Section -->
+            <section class="config-panel">
+                <h2>1. Configuración de Sala</h2>
+
+                <div class="form-group">
+                    <label for="roomName">Nombre de Sala (Tu Marca)</label>
+                    <input type="text" id="roomName" placeholder="Ej: Mi Estudio">
+                    <small>Este nombre es público. La seguridad la da el password.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="sessionPassword">Password de Sesión (Auto-generado)</label>
+                    <div class="input-row">
+                        <input type="text" id="sessionPassword" readonly>
+                        <button id="btnNewSession" class="secondary">🔄 Nueva Sesión</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="clientLabel">Nombre del Cliente (Label)</label>
+                    <input type="text" id="clientLabel" placeholder="Ej: Cliente" value="CLIENTE">
+                </div>
+            </section>
+
+            <section class="config-panel">
+                <h2>2. Parámetros de Audio/Video</h2>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="audioBitrate">Audio Bitrate (kbps)</label>
+                        <input type="number" id="audioBitrate" value="510">
+                    </div>
+                    <div class="form-group">
+                        <label for="audioLatency">Buffer / Latencia (ms)</label>
+                        <input type="number" id="audioLatency" value="100">
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="stereo" checked>
+                        <label for="stereo">Stereo Audio</label>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="videoEnabled">
+                        <label for="videoEnabled">Activar Video (Cámara)</label>
+                    </div>
+                </div>
+
+
+            </section>
+
+            <!-- Output Section -->
+            <section class="output-panel">
+                <h2>3. Enlaces Generados</h2>
+
+                <div class="link-card host">
+                    <div class="link-header">
+                        <h3>🔗 Link HOST (Para ti)</h3>
+                        <span class="badge">Configurado</span>
+                    </div>
+                    <input type="text" id="hostLink" readonly>
+                    <button class="btn-copy" data-target="hostLink">Copiar Link Host</button>
+                </div>
+
+                <div class="link-card guest">
+                    <div class="link-header">
+                        <h3>👤 Link GUEST (Para Cliente)</h3>
+                        <span class="badge">Limpio & Seguro</span>
+                    </div>
+                    <input type="text" id="guestLink" readonly>
+                    <button class="btn-copy primary" data-target="guestLink">Copiar Link Cliente</button>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Generado localmente. Ningún dato sale de tu navegador.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
