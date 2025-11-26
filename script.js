@@ -5,7 +5,8 @@ const els = {
     clientLabel: document.getElementById('clientLabel'),
     btnNewSession: document.getElementById('btnNewSession'),
     audioBitrate: document.getElementById('audioBitrate'),
-    audioLatency: document.getElementById('audioLatency'),
+    buffer: document.getElementById('buffer'),
+    sampleRate: document.getElementById('sampleRate'),
     stereo: document.getElementById('stereo'),
     videoEnabled: document.getElementById('videoEnabled'),
 
@@ -67,7 +68,8 @@ async function updateLinks() {
 
     // Audio Settings
     hostParams.append('audiobitrate', els.audioBitrate.value);
-    hostParams.append('audiolatency', els.audioLatency.value);
+    // hostParams.append('audiolatency', els.audioLatency.value);
+    hostParams.append('micsamplerate', els.sampleRate.value); // Host mic sample rate
     if (els.stereo.checked) hostParams.append('stereo', '1');
     // Codec: VDO.Ninja uses Opus for live audio. PCM is only for recordings (&pcm).
     // We remove the codec parameter to avoid confusion as 'pcm' won't work for live transport.
@@ -91,6 +93,8 @@ async function updateLinks() {
     guestParams.append('autostart', '1');
     // Guest sends low quality audio (talkback), but receives high quality from Host.
     guestParams.append('audiobitrate', '32'); // Restrict Guest mic to 32kbps (Talkback quality)
+    guestParams.append('buffer', els.buffer.value); // Add buffer to Guest URL
+    guestParams.append('samplerate', els.sampleRate.value); // Guest playback sample rate
 
     // Construct final URLs
     const baseUrl = 'https://vdo.ninja/';
@@ -107,7 +111,8 @@ function saveConfig() {
         roomName: els.roomName.value,
         clientLabel: els.clientLabel.value,
         audioBitrate: els.audioBitrate.value,
-        audioLatency: els.audioLatency.value,
+        buffer: els.buffer.value,
+        sampleRate: els.sampleRate.value,
         stereo: els.stereo.checked,
         videoEnabled: els.videoEnabled.checked,
 
@@ -122,7 +127,8 @@ function loadConfig() {
         if (config.roomName) els.roomName.value = config.roomName;
         if (config.clientLabel) els.clientLabel.value = config.clientLabel;
         if (config.audioBitrate) els.audioBitrate.value = config.audioBitrate;
-        if (config.audioLatency) els.audioLatency.value = config.audioLatency;
+        if (config.buffer) els.buffer.value = config.buffer;
+        if (config.sampleRate) els.sampleRate.value = config.sampleRate;
         if (config.stereo !== undefined) els.stereo.checked = config.stereo;
         if (config.videoEnabled !== undefined) els.videoEnabled.checked = config.videoEnabled;
 
@@ -142,7 +148,7 @@ function init() {
     updateLinks();
 
     // Event Listeners
-    const inputs = [els.roomName, els.clientLabel, els.audioBitrate, els.audioLatency, els.stereo, els.videoEnabled];
+    const inputs = [els.roomName, els.clientLabel, els.audioBitrate, els.buffer, els.sampleRate, els.stereo, els.videoEnabled];
     inputs.forEach(input => input.addEventListener('input', updateLinks));
     inputs.forEach(input => input.addEventListener('change', updateLinks));
 

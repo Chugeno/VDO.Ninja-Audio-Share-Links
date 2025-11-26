@@ -49,12 +49,34 @@
                 <div class="grid-2">
                     <div class="form-group">
                         <label for="audioBitrate">Audio Bitrate (kbps)</label>
-                        <input type="number" id="audioBitrate" value="510">
+                        <select id="audioBitrate">
+                            <option value="64">64 (Bajo Consumo)</option>
+                            <option value="96">96 (Radio FM)</option>
+                            <option value="128">128 (Estándar Música)</option>
+                            <option value="160">160 (Alta Calidad)</option>
+                            <option value="192">192 (Muy Alta)</option>
+                            <option value="256">256 (Estudio)</option>
+                            <option value="320">320 (Transparente)</option>
+                            <option value="510" selected>510 (Máximo)</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="audioLatency">Buffer / Latencia (ms)</label>
-                        <input type="number" id="audioLatency" value="100">
+                        <label for="buffer">Estabilidad / Buffer (ms)
+                            <span class="tooltip">?
+                                <span class="tooltiptext">Aumentar si hay cortes. 0-500ms: Baja latencia. 1000-4000ms:
+                                    Alta estabilidad.</span>
+                            </span>
+                        </label>
+                        <input type="number" id="buffer" value="200" placeholder="0-4000">
                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="sampleRate">Sample Rate (Hz)</label>
+                    <select id="sampleRate">
+                        <option value="48000" selected>48000 Hz (Recomendado Video/Opus)</option>
+                        <option value="44100">44100 Hz (Estándar CD)</option>
+                    </select>
                 </div>
 
                 <div class="grid-2">
